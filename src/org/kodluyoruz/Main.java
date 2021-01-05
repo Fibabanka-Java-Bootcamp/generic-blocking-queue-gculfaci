@@ -7,15 +7,23 @@ public class Main {
     public static void main(String[] args) {
 
       GenericTypeNode<Integer> myQueue = new GenericTypeNode<>(0);
-      myQueue.add(6);
-      myQueue.add(1);
-      myQueue.add(2);
-      myQueue.showAllQueue();
-      System.out.println(myQueue.poll() + " polled in queue");
-      System.out.println(myQueue.peek() + " is first element of queue ");
-      myQueue.showAllQueue();
 
-      System.out.println(" ");
+      MyThread thread0 = new MyThread(myQueue);
+      MyThread thread1 = new MyThread(myQueue);
+
+      thread0.start();
+      thread1.start();
+
+      try {
+        thread0.join();
+        thread1.join();
+        
+      } catch (InterruptedException e) {
+        System.out.println("Main thread is interrupted");
+      }
+      System.out.println("Main thread is terminating");
+
+      /*System.out.println(" ");
 
       GenericTypeNode<String> myQueue2 = new GenericTypeNode<>(null);
       myQueue2.add("Gökhan");
@@ -25,7 +33,7 @@ public class Main {
       myQueue2.showAllQueue();
       System.out.println(myQueue2.poll() + " polled in queue");
       System.out.println(myQueue2.peek() + " is first element of queue ");
-      myQueue2.showAllQueue();
+      myQueue2.showAllQueue();*/
 
     
     }

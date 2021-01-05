@@ -1,6 +1,5 @@
 package org.kodluyoruz;
 
-
 public class GenericTypeNode<T> {
     private T anyValue;
     private GenericTypeNode<T> nextNode;
@@ -18,23 +17,23 @@ public class GenericTypeNode<T> {
         this.nextNode = nextNode;
     }
 
-    public T getValue(){
+    public synchronized T getValue(){
         return anyValue;
     }
 
-    public void setValue(T anyValue) {
+    public synchronized void setValue(T anyValue) {
         this.anyValue = anyValue;
     }
 
-    public GenericTypeNode<T> getNextNode(){
+    public synchronized GenericTypeNode<T> getNextNode(){
         return nextNode;
     }
 
-    public void setNextNode(GenericTypeNode<T> nextNode) {
+    public synchronized void setNextNode(GenericTypeNode<T> nextNode) {
         this.nextNode = nextNode;
     }
 
-    public void add(T anyValue){
+    public synchronized void add(T anyValue){
 
         GenericTypeNode<T> node = new GenericTypeNode<T>(anyValue);
         if(head== null){
@@ -46,17 +45,19 @@ public class GenericTypeNode<T> {
             tail = node;
         }
     }
-    public void showAllQueue(){
+    public synchronized void showAllQueue(){
         temp = head;
+        System.out.print("Queue :");
         while(temp != null){
-            System.out.print("Queue : - " + temp.getValue()+ " - ");
+            
+            System.out.print(" - " + temp.getValue()+ " - ");
             temp = temp.getNextNode();
 
         }
         System.out.println("");
     }
 
-    public T peek(){
+    public synchronized T peek(){
         
         if(head != null){
             return head.getValue();
@@ -65,7 +66,7 @@ public class GenericTypeNode<T> {
 
     }
 
-    public T poll(){
+    public synchronized T poll(){
         T anyValue = null;
         if(head != null){
             GenericTypeNode<T> node = head;
